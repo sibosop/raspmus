@@ -1,0 +1,3 @@
+[submodule "sibcommon"]
+	path = sibcommon
+	url = git@github.com:sibosop/sibcommon.git
