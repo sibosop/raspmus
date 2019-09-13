@@ -6,7 +6,7 @@ while true; do
   do
     args="$args $i "
   done
-  /home/pi/GitProjects/netGarden/server/garden.py $args
+  /home/pi/GitProjects/raspmus/raspmus.py $args
   rc=$?
   case $rc in
     3) logger doing poweroff; sudo poweroff
