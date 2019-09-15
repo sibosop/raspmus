@@ -1,6 +1,8 @@
 [submodule "sibcommon"]
 	path = sibcommon
 	url = git@github.com:sibosop/sibcommon.git
+	branch = master
 [submodule "speclib"]
 	path = speclib
 	url = git@github.com:sibosop/speclib.git
+	branch = master
