@@ -8,7 +8,7 @@ os.chdir(os.path.dirname(sys.argv[0]))
 pname = sys.argv[0]
 home = os.environ['HOME']
 sys.path.append("sibcommon")
-defaultSpecPath = "%s/%s"%("specs","raspmus.json")
+defaultSpecPath = "%s/%s"%("speclib","raspmus.json")
 from hosts import Hosts
 from specs import Specs
 import json
@@ -70,6 +70,14 @@ def doShow(cmd):
   args={}
   args['phrase'] = phrase
   args['color'] = parms.color[0]
+  sendCargs(parms,{'cmd' : cmd[0], 'args' : args })
+  return 0
+  
+def doUpgrade(cmd):
+  parse=argparse.ArgumentParser(prog=cmd[0],parents=[defParse]) 
+  parms=parse.parse_args(cmd[1:])
+  args={}
+  args['timeout'] = 5
   sendCargs(parms,{'cmd' : cmd[0], 'args' : args })
   return 0
   
@@ -182,7 +190,7 @@ cmds = {
   ,'SoundVol'       : doNum
   ,'Test'           : doTest
   ,'Threads'        : doNum
-  ,'Upgrade'        : doCmd
+  ,'Upgrade'        : doUpgrade
   ,'Volume'         : doNum
 }
 

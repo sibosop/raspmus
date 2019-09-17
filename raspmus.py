@@ -22,6 +22,7 @@ from specs import Specs
 import json
 from soundTrack import SoundTrackManager
 from musicPlayer import MusicPlayer
+import signal
 
 gardenExit = 0
 
@@ -32,11 +33,24 @@ def doProbe(args):
   for k in attr.keys():
     state[k]=attr[k]
   return json.dumps(state)
+  
+class ServiceExit(Exception):
+    """
+    Custom exception which is used to trigger the clean exit
+    of all running threads and the main program.
+    """
+    pass
+
+def service_shutdown(signum, frame):
+    print_dbg('Caught signal %d' % signum)
+    raise ServiceExit
 
 
 
 if __name__ == '__main__':
   try:
+    signal.signal(signal.SIGTERM, service_shutdown)
+    signal.signal(signal.SIGINT, service_shutdown)
     print("%s at %s"%(pname,datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')))
     pygame.mixer.pre_init(frequency=44100, size=-16, channels=2, buffer=4096)
     pygame.init()
@@ -68,14 +82,20 @@ if __name__ == '__main__':
       pt = MusicPlayer()
       pt.setDaemon(True)
       pt.start()
+      
+    gardenExit = 6
+    while pt.done is False:
+        pass
+        
+    print "waiting for channels to be done"
+    while True:
+      n = pygame.mixer.get_busy()
+      print "number busy channels",n
+      if n == 0:
+        break;
+      time.sleep(1)
     
-    while gardenExit == 0:
-      try:
-        time.sleep(5)
-      except KeyboardInterrupt:
-        print("%s: keyboard interrupt"%pname)
-        gardenExit = 5
-        break
+           
   except Exception as e:
     print("%s"%e)
     traceback.print_exc()
