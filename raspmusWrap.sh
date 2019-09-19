@@ -9,13 +9,13 @@ while true; do
   /home/pi/GitProjects/raspmus/raspmus.py $args
   rc=$?
   case $rc in
-    3) logger doing poweroff; sudo poweroff
+    3) echo doing poweroff; sudo poweroff
     ;;
-    4) logger doing reboot; sudo reboot
+    4) echo doing reboot; sudo reboot
     ;;
-    5) logger doing stop; exit 0
+    5) echo doing stop; exit 0
     ;;
-    6) logger doing restart
+    6) echo doing restart
     ;;
     *)
     ;;
