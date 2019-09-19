@@ -41,7 +41,7 @@ class ServiceExit(Exception):
     pass
 
 def service_shutdown(signum, frame):
-    print_dbg('Caught signal %d' % signum)
+    Debug().p('Caught signal %d' % signum)
     raise ServiceExit
 
 if __name__ == '__main__':
@@ -55,7 +55,7 @@ if __name__ == '__main__':
     parser.add_argument('-c','--config',nargs=1,type=str,default=[defaultSpecPath],help='specify different config file')
     parser.add_argument('-s','--soundDir',nargs=1,help='specify sound file directory')
     args = parser.parse_args()
-    Debug(['specs'])
+    Debug(['specs',"__main__"])
     Debug().p("config path %s"%args.config[0])
     specs = Specs(args.config[0]).s
     Debug().enable(specs['debug'])
@@ -95,14 +95,13 @@ if __name__ == '__main__':
       iat.start()
 
     gardenExit = 6
-    
+    if Hosts().getLocalAttr('hasMusicPlayer'):
+      mpt = MusicPlayer()
+      mpt.setDaemon(True)
+      mpt.start()
+      
     while True:
-      if Hosts().getLocalAttr('hasMusicPlayer'):
-        mpt = MusicPlayer()
-        mpt.start()
-        mpt.join()
-      else:
-        time.sleep(1)
+      time.sleep(1)
 
   except Exception as e:
     print("%s"%e)
