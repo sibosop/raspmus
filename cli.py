@@ -17,8 +17,7 @@ import readline
 import select
 import time
 import traceback
-from utils import print_dbg
-from utils import setDebug
+from debug import Debug
 
 isRaspberry=platform.uname()[1] == 'raspberrypi'
 defParse=None
@@ -222,8 +221,9 @@ if __name__ == '__main__':
   parser.add_argument('-c','--config',nargs=1,type=str,default=[defaultSpecPath],help='specify different config file')
   args = parser.parse_args()
   print ("config path %s"%args.config)
-  setDebug(args.debug)
+  Debug(['specs'])
   Specs(args.config[0])
+  Debug().enable(Specs().s['debug'])
   Hosts().printHostList()
   printCmds("")
     
