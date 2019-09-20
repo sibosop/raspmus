@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import os
 import sys
-import pygame
 os.environ['DISPLAY']=":0.0"
 os.chdir(os.path.dirname(sys.argv[0]))
 pname = sys.argv[0]
@@ -15,6 +14,7 @@ import json
 import subprocess
 import traceback
 import signal
+import pygame
 
 from hosts import Hosts
 from asoundConfig import setVolume
@@ -28,6 +28,8 @@ from musicPlayer import MusicPlayer
 from shutdown import Shutdown
 from phraseHandler import PhraseHandler
 from musicPlayer import MusicPlayer
+from watchdog import Watchdog
+from voice import Voice
 
 gardenExit = 0
 
@@ -76,10 +78,7 @@ if __name__ == '__main__':
       dht.setDaemon(True)
       dht.start()
       
-    if Hosts().getLocalAttr('hasPhrase'):
-      pht = PhraseHandler()
-      pht.setDaemon(True)
-      pht.start()
+    
       
     if Hosts().getLocalAttr('hasMusic'):
       SoundTrackManager(soundDir).changeNumSoundThreads(specs['numMusicThreads'])
@@ -88,8 +87,18 @@ if __name__ == '__main__':
       pct = Shutdown()
       pct.setDaemon(True)
       pct.start()
+      
+    if Hosts().getLocalAttr('hasPhrase'):
+      pht = PhraseHandler()
+      pht.setDaemon(True)
+      pht.start()
+      
+    if Hosts().getLocalAttr('hasVoice'):
+      vt = Voice()
+      vt.setDaemon(True)
+      vt.start()
        
-    if Hosts().getLocalAttr('hasiAltar'):
+    if Hosts().getLocalAttr('hasiAltarPlayer'):
       iat = iAltar()
       iat.setDaemon(True)
       iat.start()
