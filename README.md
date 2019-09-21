@@ -6,7 +6,7 @@ Step by step installation of raspmus
 * `cd !$`
 * `git clone git@github.com:sibosop/sibcommon.git`
 * `git clone git@github.com:sibosop/speclib.git`
-* `git clone 
+* `git clone git@github.com:sibosop/raspmus.git`
 
 ## setting up autoboot
 * `crontab -e`
