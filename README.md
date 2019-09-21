@@ -2,7 +2,7 @@
 Step by step installation of raspmus
 
 ## get projects
-* `mkdir ~/GitProjects`
+* `mkdir -p ~/GitProjects`
 * `cd !$`
 * `git clone git@github.com:sibosop/bashenv.git`
 * `git -C bashenv checkout raspi`
