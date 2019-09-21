@@ -224,6 +224,7 @@ if __name__ == '__main__':
   Debug(['specs'])
   Specs(args.config[0])
   Debug().enable(Specs().s['debug'])
+  Debug().enable(['hosts'])
   Hosts().printHostList()
   printCmds("")
     
