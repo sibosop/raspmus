@@ -21,6 +21,7 @@ enter:
 * `@reboot sleep 20; /home/pi/GitProjects/raspmus/raspmusWrap.sh 2>&1 | logger -t raspmus`
 
 ## Manual upgrade
+* `git -C GitProjects/bashenv pull origin raspi`
 * `cd $raspmus`
 * `git pull origin master`
 * `git -C sibcommon pull origin master`
