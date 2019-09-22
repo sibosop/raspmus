@@ -76,7 +76,7 @@ def doUpgrade(cmd):
   parse=argparse.ArgumentParser(prog=cmd[0],parents=[defParse]) 
   parms=parse.parse_args(cmd[1:])
   args={}
-  args['timeout'] = 5
+  args['timeout'] = 30
   sendCargs(parms,{'cmd' : cmd[0], 'args' : args })
   return 0
   

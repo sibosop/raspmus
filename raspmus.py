@@ -30,6 +30,7 @@ from phraseHandler import PhraseHandler
 from musicPlayer import MusicPlayer
 from watchdog import Watchdog
 from voice import Voice
+from threadMgr import ThreadMgr
 
 gardenExit = 0
 
@@ -74,44 +75,34 @@ if __name__ == '__main__':
       sst.start()
       
     if Hosts().getLocalAttr('hasDisplay'):
-      dht = DisplayHandler()
-      dht.setDaemon(True)
-      dht.start()
-      
-    
-      
+      ThreadMgr().start(DisplayHandler())
+
     if Hosts().getLocalAttr('hasMusic'):
       SoundTrackManager(soundDir).changeNumSoundThreads(specs['numMusicThreads'])
       
     if Hosts().getLocalAttr('hasPowerCheck'):
-      pct = Shutdown()
-      pct.setDaemon(True)
-      pct.start()
+      ThreadMgr().start(Shutdown())
       
     if Hosts().getLocalAttr('hasPhrase'):
-      pht = PhraseHandler()
-      pht.setDaemon(True)
-      pht.start()
+      ThreadMgr().start(PhraseHandler())
       
     if Hosts().getLocalAttr('hasVoice'):
-      vt = Voice()
-      vt.setDaemon(True)
-      vt.start()
+      ThreadMgr().start(Voice())
        
     if Hosts().getLocalAttr('hasiAltarPlayer'):
-      iat = iAltar()
-      iat.setDaemon(True)
-      iat.start()
-
+      ThreadMgr().start(iAltar())
+      
     gardenExit = 6
     if Hosts().getLocalAttr('hasMusicPlayer'):
-      mpt = MusicPlayer()
-      mpt.setDaemon(True)
-      mpt.start()
+      ThreadMgr().start(MusicPlayer())
       
     while True:
       time.sleep(1)
 
+  except ServiceExit:
+    print("%s got signal"%pname)
+    ThreadMgr().stopAll()
+    gardenExit = 5
   except Exception as e:
     print("%s"%e)
     traceback.print_exc()
