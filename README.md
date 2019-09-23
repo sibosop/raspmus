@@ -1,6 +1,28 @@
 # raspmus
 Step by step installation of raspmus
 
+## sd card setup
+* reformat card with sdformatter app on mac
+* put latest noobs on sdcard
+* Make a NOOBS Directory and unzip it there since the unzip doesn't spec a top dir
+* Copy NOOBS contents to sdcard
+* start up with ethernet cable 
+* make sure to specify US keyboard on install screen
+* select preferemces->Rasberry Pi Configuration->interfaces and enable ssh
+* for linksys router got to connectivity->local networks and hardwire dhcp settings for the raspi wifi
+* ifconfig will show the current wlan number
+
+## ssh and network setup
+* on raspi `ssh-keygen` to generate a ssh key for github and also create a .ssh dir
+* cut and paste .ssh/id_rsa.pub contents into raspi .ssh/authorized_keys
+* cut and paste the rasp id_ras.pub into the git hub keys
+* The wifi config file: `sudo vi /etc/wpa_supplicant/wpa_supplicant.conf`
+
+## fixing the wi-fi on older machines with dongles
+* `sudo vi /etc/modprobe.d/8192cu.conf`
+* add the line `options 8192cu rtw_power_mgnt=0 rtw_enusbss=0`
+* reboot
+
 ## get projects
 * `mkdir -p ~/GitProjects`
 * `cd !$`
@@ -11,6 +33,33 @@ Step by step installation of raspmus
 * `git clone git@github.com:sibosop/raspmus.git`
 * `rm -rf ~/bashrc.d ~/.vimrc`
 * `cd bashenv; ./onetimesetup.sh`
+
+### update the os use apt-get since apt tends to screw up terminal screens
+* `sudo apt-get update`
+* `sudo apt-get purge wolfram-engine`
+* `sudo apt-get upgrade`
+
+#### Monitor setup information
+* configure small screen (hdmi_drive=1 has been added here to remove purple line on left side of screen which
+* began to appear on versions after 3/01/2017)
+  * `sudo vi /boot/config.txt`
+  * add lines
+     * `hdmi_force_hotplug=1`
+     * `hdmi_group=2`
+     * `hdmi_mode=1`
+     * `hdmi_drive=1`
+     * `hdmi_mode=87`
+     * `hdmi_cvt 800 480 60 6 0 0 0`
+* if using large screen then
+  * add lines 
+    * `hdmi_force_hotplug=1`
+    * `hdmi_group=2`
+    * `hdmi_mode=1`
+    * `hdmi_drive=1`
+    * `hdmi_mode=82`
+* if the HDMI screen does not fill out to the edges then
+* uncomment this line
+  * disable_overscan=1
 
 ## setting up autoboot
 * `crontab -e`
