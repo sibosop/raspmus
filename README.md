@@ -22,7 +22,10 @@ Step by step installation of raspmus
 * `sudo vi /etc/modprobe.d/8192cu.conf`
 * add the line `options 8192cu rtw_power_mgnt=0 rtw_enusbss=0`
 * reboot
-
+### update the os use apt-get since apt tends to screw up terminal screens
+* `sudo apt-get update`
+* `sudo apt-get purge wolfram-engine`
+* `sudo apt-get upgrade`
 ## get projects
 * `mkdir -p ~/GitProjects`
 * `cd !$`
@@ -33,13 +36,32 @@ Step by step installation of raspmus
 * `git clone git@github.com:sibosop/raspmus.git`
 * `rm -rf ~/bashrc.d ~/.vimrc`
 * `cd bashenv; ./onetimesetup.sh`
+## update the bashrc
+* put theses lines at the bottom of ~/.bashrc:
+*
+* export PATH=$PATH:~/bin
+* bashdir=bashrc.d
+* pushd $HOME > /dev/null
+* for f in `` `ls $bashdir` ``; do
+*   source $bashdir/$f
+* done
+* popd > /dev/null
+### fix the fstab
+* `cd $sibcommon`
+* `sudo cp fstab /etc/fstab`
+### make sure the syslog rotation is daily not weekly
+check the log file daily since the directory is now smaller, change weekly to daily
+keep only two days
+* `sudo vi /etc/logrotate.conf`
+### get rid of user messages log which are redundant
+`sudo cp $sibcommon/rsyslog.conf /etc/rsyslog.conf`
+### update the support packages (fix swap)
+* `cd $sibcommon`
+* `./packageSetup.sh`
 
-### update the os use apt-get since apt tends to screw up terminal screens
-* `sudo apt-get update`
-* `sudo apt-get purge wolfram-engine`
-* `sudo apt-get upgrade`
 
 #### Monitor setup information
+* stop screen blanking by going to preferences->xscreensaver and default it to off
 * configure small screen (hdmi_drive=1 has been added here to remove purple line on left side of screen which
 * began to appear on versions after 3/01/2017)
   * `sudo vi /boot/config.txt`
