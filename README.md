@@ -59,6 +59,8 @@ keep only two days
 * `cd $sibcommon`
 * `./packageSetup.sh`
 
+### if thumbdrive has wrong name
+* `sudo dosfslabel /dev/sda1 ARCHIVE`
 
 #### Monitor setup information
 * stop screen blanking by going to preferences->xscreensaver and default it to off
