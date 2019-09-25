@@ -187,6 +187,7 @@ cmds = {
   ,'Reboot'         : doCmd
   ,'Show'           : doShow
   ,'SoundVol'       : doNum
+  ,'Stop'           : doCmd
   ,'Test'           : doTest
   ,'Threads'        : doNum
   ,'Upgrade'        : doUpgrade
@@ -217,7 +218,6 @@ if __name__ == '__main__':
     readline.parse_and_bind("bind ^I rl_complete")
   readline.set_completer(completer)
   parser = argparse.ArgumentParser()
-  parser.add_argument('-d','--debug', action = 'store_true',help='set debug')
   parser.add_argument('-c','--config',nargs=1,type=str,default=[defaultSpecPath],help='specify different config file')
   args = parser.parse_args()
   print ("config path %s"%args.config)
