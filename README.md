@@ -86,9 +86,9 @@ keep only two days
   * disable_overscan=1
 
 ## setting up autoboot
+### first time setup
 * `crontab -e`
-
-enter:
+* Note: use -c with relative path (speclib/<json file) if it's not raspmus.json
 * `MAILTO=""`
 * `@reboot sleep 10;/home/pi/GitProjects/sibcommon/asoundConfig.py 2>&1 | logger -t asoundConfig`
 * `@reboot sleep 20; /home/pi/GitProjects/raspmus/raspmusWrap.sh 2>&1 | logger -t raspmus`
