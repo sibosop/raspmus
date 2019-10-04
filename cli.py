@@ -55,7 +55,9 @@ def doNum(cmd):
   parse.add_argument('value',type=int,nargs=1)
   parms=parse.parse_args(cmd[1:])
   print parms.value
-  sendCargs(parms,{'cmd' : cmd[0], 'args' :  parms.value})
+  args = {}
+  args['value'] = parms.value[0]
+  sendCargs(parms,{'cmd' : cmd[0], 'args' :  args})
   return 0
 
 def doShow(cmd):
