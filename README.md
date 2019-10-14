@@ -99,3 +99,15 @@ keep only two days
 * `git pull origin master`
 * `git -C sibcommon pull origin master`
 * `git -C speclib pull origin master`
+
+### Midi (mido) setup
+* `import mido`
+* `mido.set_backend('mido.backends.pygame')`
+* `mido.mido.get_input_names()`
+  * _[u'Midi Through Port-0', u'nanoKONTROL2 MIDI 1'_
+* `port = mido.open_input('nanoKONTROL2 MIDI 1')`
+* `message = port.receive()`
+* `print message`
+  * _control_change channel=0 control=5 value=84 time=0_
+
+
