@@ -31,6 +31,7 @@ from musicPlayer import MusicPlayer
 from watchdog import Watchdog
 from voice import Voice
 from threadMgr import ThreadMgr
+from midiHandler import MidiHandler
 
 gardenExit = 0
 
@@ -95,6 +96,11 @@ if __name__ == '__main__':
     gardenExit = 6
     if Hosts().getLocalAttr('hasMusicPlayer'):
       ThreadMgr().start(MusicPlayer())
+      
+    midi = Hosts().getLocalAttr('midi')
+    if midi['enabled']:
+      Debug().p("%s: starting up midi %s"%(pname,midi))
+      ThreadMgr().start(MidiHandler())
       
     while True:
       time.sleep(1)
