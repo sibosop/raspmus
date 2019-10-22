@@ -211,6 +211,7 @@ cmds = {
   ,'Probe'          : doCmd
   ,'Quit'           : doQuit
   ,'Reboot'         : doCmd
+  ,'Restart'        : doCmd
   ,'StartMusic'     : doStartMusic
   ,'Show'           : doShow
   ,'SoundVol'       : doNum
