@@ -179,6 +179,7 @@ def printCmds(cmd):
 cmds = {
   'Collection'      : doMasterArg
   ,'CollectionList' : doMasterCmd
+  ,'HaltSound'      : doCmd
   ,'Help'           : printCmds
   ,'MaxEvents'      : doNum
   ,'Phrase'         : doPhrase
