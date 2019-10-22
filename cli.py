@@ -49,6 +49,28 @@ def doMasterCmd(cmd):
 def doMasterArg(cmd):
   Hosts().sendToMaster({'cmd' : cmd[0], 'args' : [cmd[1]] })
   return 0
+
+def doHaltMusic(cmd):
+  hmcmd = { 'cmd' : 'HaltMusic', 'args' : [""] }
+  hscmd = { 'cmd' : 'HaltSound', 'args' : [""] }
+  hosts = Hosts().getHosts()
+  for h in hosts:
+    if h['hasMusicPlayer']:
+      Hosts().sendToHost(h['ip'],hmcmd)
+  for h in hosts:
+    if h['hasMusic']:
+      Hosts().sendToHost(h['ip'],hscmd)
+  return 0
+
+def doStartMusic(cmd):
+  smcmd = { 'cmd' : 'StartMusic', 'args' : [""] }
+  hosts = Hosts().getHosts()
+  for h in hosts:
+    if h['hasMusicPlayer']:
+      Hosts().sendToHost(h['ip'],smcmd)
+  return 0
+
+
   
 def doNum(cmd):
   parse=argparse.ArgumentParser(prog=cmd[0],parents=[defParse]) 
@@ -179,7 +201,8 @@ def printCmds(cmd):
 cmds = {
   'Collection'      : doMasterArg
   ,'CollectionList' : doMasterCmd
-  ,'HaltSound'      : doCmd
+  ,'HaltMusic'      : doHaltMusic
+  ,'HaltSound'     : doCmd
   ,'Help'           : printCmds
   ,'MaxEvents'      : doNum
   ,'Phrase'         : doPhrase
@@ -188,6 +211,7 @@ cmds = {
   ,'Probe'          : doCmd
   ,'Quit'           : doQuit
   ,'Reboot'         : doCmd
+  ,'StartMusic'     : doStartMusic
   ,'Show'           : doShow
   ,'SoundVol'       : doNum
   ,'Stop'           : doCmd
