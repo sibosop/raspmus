@@ -32,6 +32,7 @@ from watchdog import Watchdog
 from voice import Voice
 from threadMgr import ThreadMgr
 from midiHandler import MidiHandler
+from nanoPlayer import NanoPlayer
 
 gardenExit = 0
 
@@ -101,6 +102,7 @@ if __name__ == '__main__':
     if midi['enabled']:
       Debug().p("%s: starting up midi %s"%(pname,midi))
       ThreadMgr().start(MidiHandler())
+      NanoPlayer()
       
     while True:
       time.sleep(1)
