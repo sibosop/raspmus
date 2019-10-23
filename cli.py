@@ -18,6 +18,8 @@ import select
 import time
 import traceback
 from debug import Debug
+from utils import doHaltMusic
+from utils import doStartMusic
 
 isRaspberry=platform.uname()[1] == 'raspberrypi'
 defParse=None
@@ -50,25 +52,6 @@ def doMasterArg(cmd):
   Hosts().sendToMaster({'cmd' : cmd[0], 'args' : [cmd[1]] })
   return 0
 
-def doHaltMusic(cmd):
-  hmcmd = { 'cmd' : 'HaltMusic', 'args' : [""] }
-  hscmd = { 'cmd' : 'HaltSound', 'args' : [""] }
-  hosts = Hosts().getHosts()
-  for h in hosts:
-    if h['hasMusicPlayer']:
-      Hosts().sendToHost(h['ip'],hmcmd)
-  for h in hosts:
-    if h['hasMusic']:
-      Hosts().sendToHost(h['ip'],hscmd)
-  return 0
-
-def doStartMusic(cmd):
-  smcmd = { 'cmd' : 'StartMusic', 'args' : [""] }
-  hosts = Hosts().getHosts()
-  for h in hosts:
-    if h['hasMusicPlayer']:
-      Hosts().sendToHost(h['ip'],smcmd)
-  return 0
 
 
   
