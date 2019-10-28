@@ -28,6 +28,8 @@ Step by step installation of raspmus
 * `sudo apt-get update`
 * `sudo apt-get purge wolfram-engine`
 * `sudo apt-get upgrade`
+### do this if you are already screwed by wolfram
+* `sudo dpkg --remove --force-remove-reinstreq wolfram-engine`
 ## get projects
 * `mkdir -p ~/GitProjects`
 * `cd !$`
