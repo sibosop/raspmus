@@ -17,6 +17,8 @@ Step by step installation of raspmus
 * cut and paste .ssh/id_rsa.pub contents into raspi .ssh/authorized_keys
 * cut and paste the rasp id_ras.pub into the git hub keys
 * The wifi config file: `sudo vi /etc/wpa_supplicant/wpa_supplicant.conf`
+## afp (file sharing)
+* https://pimylifeup.com/raspberry-pi-afp/
 
 ## fixing the wi-fi on older machines with dongles
 * `sudo vi /etc/modprobe.d/8192cu.conf`
