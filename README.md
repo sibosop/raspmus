@@ -113,5 +113,15 @@ keep only two days
 * `message = port.receive()`
 * `print message`
   * _control_change channel=0 control=5 value=84 time=0_
+  
+### Speech Recog notes
+The versions from pip are old.
+
+The latest version is here:
+
+https://pypi.org/project/pyalsaaudio/
+
+download the tar file, untar it and do
+`sudo ./setup.py install`
 
 
