@@ -123,5 +123,8 @@ https://pypi.org/project/pyalsaaudio/
 
 download the tar file, untar it and do
 `sudo ./setup.py install`
-
-
+#### credential install location
+* `cd ~` 
+* `mkdir apiKeys`
+* `cd !$`
+* ln -s ~/.config/gcloud/application_default_credentials.json` recog.json
