@@ -22,7 +22,7 @@ from debug import Debug
 from server import Server
 from specs import Specs
 from iAltarPlayer import iAltar
-from displayHandler import DisplayHandler
+from imageHandler import ImageHandler
 from soundTrack import SoundTrackManager
 from musicPlayer import MusicPlayer
 from shutdown import Shutdown
@@ -33,6 +33,11 @@ from voice import Voice
 from threadMgr import ThreadMgr
 from midiHandler import MidiHandler
 from nanoPlayer import NanoPlayer
+from recog import Recog
+from recorder import Recorder
+from recogOutput import RecogOutput
+from recogAnalyzer import RecogAnalyzer
+
 
 gardenExit = 0
 
@@ -76,28 +81,48 @@ if __name__ == '__main__':
       sst.setDaemon(True)
       sst.start()
       
-    if Hosts().getLocalAttr('hasDisplay'):
-      ThreadMgr().start(DisplayHandler())
-
-    if Hosts().getLocalAttr('hasMusic'):
+    hasPhrase = False
+    iAltar = Hosts().getLocalAttr("iAltar")
+    if iAltar["enabled"]:
+      if iAltar['image']:
+        ThreadMgr().start(ImageHandler())
+      hasPhrase = iAltar['phrase']
+      if iAltar['player']:
+        ThreadMgr().start(iAltar())
+    
+    music = Hosts().getLocalAttr('music')
+    if music['enabled']:
       SoundTrackManager(soundDir).changeNumSoundThreads(specs['numMusicThreads'])
+      if music['player']:
+        ThreadMgr().start(MusicPlayer())
       
     if Hosts().getLocalAttr('hasPowerCheck'):
       ThreadMgr().start(Shutdown())
-      
-    if Hosts().getLocalAttr('hasPhrase'):
-      ThreadMgr().start(PhraseHandler())
-      
-    if Hosts().getLocalAttr('hasVoice'):
-      ThreadMgr().start(Voice())
+     
+    
        
-    if Hosts().getLocalAttr('hasiAltarPlayer'):
-      ThreadMgr().start(iAltar())
-      
     gardenExit = 6
-    if Hosts().getLocalAttr('hasMusicPlayer'):
-      ThreadMgr().start(MusicPlayer())
+   
+    recog = Hosts().getLocalAttr('recog')
+    if recog['enabled']:
+      hasPhrase = recog['phrase']
+      if recog['engine']:
+        ThreadMgr().start(Recog())
+        ThreadMgr().start(Recorder())
+        ThreadMgr().start(RecogAnalyzer())
+        ThreadMgr().start(RecogOutput())
       
+    if hasPhrase:
+      phr = Hosts().getLocalAttr("phrase")
+      
+      if phr["enabled"]:
+        ThreadMgr().start(PhraseHandler())
+    
+        if phr['voice']:
+            ThreadMgr().start(Voice())
+      else:
+        print("Warning: phrase requested but not enabled")
+        
     midi = Hosts().getLocalAttr('midi')
     if midi['enabled']:
       Debug().p("%s: starting up midi %s"%(pname,midi))
