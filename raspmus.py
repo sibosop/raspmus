@@ -33,10 +33,6 @@ from voice import Voice
 from threadMgr import ThreadMgr
 from midiHandler import MidiHandler
 from nanoPlayer import NanoPlayer
-from recog import Recog
-from recorder import Recorder
-from recogOutput import RecogOutput
-from recogAnalyzer import RecogAnalyzer
 
 
 gardenExit = 0
@@ -82,12 +78,12 @@ if __name__ == '__main__':
       sst.start()
       
     hasPhrase = False
-    iAltar = Hosts().getLocalAttr("iAltar")
-    if iAltar["enabled"]:
-      if iAltar['image']:
+    ialtar = Hosts().getLocalAttr("iAltar")
+    if ialtar["enabled"]:
+      if ialtar['image']:
         ThreadMgr().start(ImageHandler())
-      hasPhrase = iAltar['phrase']
-      if iAltar['player']:
+      hasPhrase = ialtar['phrase']
+      if ialtar['player']:
         ThreadMgr().start(iAltar())
     
     music = Hosts().getLocalAttr('music')
@@ -107,6 +103,10 @@ if __name__ == '__main__':
     if recog['enabled']:
       hasPhrase = recog['phrase']
       if recog['engine']:
+        from recog import Recog
+        from recorder import Recorder
+        from recogOutput import RecogOutput
+        from recogAnalyzer import RecogAnalyzer
         ThreadMgr().start(Recog())
         ThreadMgr().start(Recorder())
         ThreadMgr().start(RecogAnalyzer())
