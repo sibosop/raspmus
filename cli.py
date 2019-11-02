@@ -22,6 +22,7 @@ from utils import doHaltMusic
 from utils import doStartMusic
 from utils import doStartRecog
 from utils import doHaltRecog
+from utils import doGetRecog
 
 isRaspberry=platform.uname()[1] == 'raspberrypi'
 defParse=None
@@ -186,6 +187,7 @@ def printCmds(cmd):
 cmds = {
   'Collection'      : doMasterArg
   ,'CollectionList' : doMasterCmd
+  ,'GetRecog'       : doGetRecog
   ,'HaltMusic'      : doHaltMusic
   ,'HaltRecog'      : doHaltRecog
   ,'HaltSound'      : doCmd
