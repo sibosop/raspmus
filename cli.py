@@ -20,6 +20,8 @@ import traceback
 from debug import Debug
 from utils import doHaltMusic
 from utils import doStartMusic
+from utils import doStartRecog
+from utils import doHaltRecog
 
 isRaspberry=platform.uname()[1] == 'raspberrypi'
 defParse=None
@@ -185,7 +187,8 @@ cmds = {
   'Collection'      : doMasterArg
   ,'CollectionList' : doMasterCmd
   ,'HaltMusic'      : doHaltMusic
-  ,'HaltSound'     : doCmd
+  ,'HaltRecog'      : doHaltRecog
+  ,'HaltSound'      : doCmd
   ,'Help'           : printCmds
   ,'MaxEvents'      : doNum
   ,'Phrase'         : doPhrase
@@ -195,6 +198,7 @@ cmds = {
   ,'Quit'           : doQuit
   ,'Reboot'         : doCmd
   ,'Restart'        : doCmd
+  ,'StartRecog'     : doStartRecog
   ,'StartMusic'     : doStartMusic
   ,'Show'           : doShow
   ,'SoundVol'       : doNum

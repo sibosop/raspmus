@@ -103,14 +103,8 @@ if __name__ == '__main__':
     if recog['enabled']:
       hasPhrase = recog['phrase']
       if recog['engine']:
-        from recog import Recog
-        from recorder import Recorder
-        from recogOutput import RecogOutput
-        from recogAnalyzer import RecogAnalyzer
-        ThreadMgr().start(Recog())
-        ThreadMgr().start(Recorder())
-        ThreadMgr().start(RecogAnalyzer())
-        ThreadMgr().start(RecogOutput())
+        from recogHandler import RecogHandler
+        ThreadMgr().start(RecogHandler())
       
     if hasPhrase:
       phr = Hosts().getLocalAttr("phrase")
