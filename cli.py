@@ -25,6 +25,7 @@ from utils import doHaltRecog
 from utils import doGetRecog
 from utils import doStartVoice
 from utils import doHaltVoice
+from utils import doSetSearch
 
 isRaspberry=platform.uname()[1] == 'raspberrypi'
 defParse=None
@@ -57,6 +58,8 @@ def doMasterArg(cmd):
   Hosts().sendToMaster({'cmd' : cmd[0], 'args' : [cmd[1]] })
   return 0
 
+def doSearch(cmd):
+  doSetSearch(cmd[1])
 
 
   
@@ -203,6 +206,7 @@ cmds = {
   ,'Quit'           : doQuit
   ,'Reboot'         : doCmd
   ,'Restart'        : doCmd
+  ,'Search'         : doSearch
   ,'StartRecog'     : doStartRecog
   ,'StartMusic'     : doStartMusic
   ,'StartVoice'     : doStartVoice
