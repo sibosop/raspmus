@@ -101,7 +101,7 @@ if __name__ == '__main__':
    
     recog = Hosts().getLocalAttr('recog')
     if recog['enabled']:
-      hasPhrase = recog['phrase']
+      hasPhrase = recog['phrase'] != ""
       if recog['engine']:
         from recogHandler import RecogHandler
         ThreadMgr().start(RecogHandler())
